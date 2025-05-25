@@ -1,0 +1,16 @@
+.card_container{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    
+    border: 2px solid black;
+    box-shadow: 5px 5px 15px ;
+    border-radius: 8px;
+    background-color:#67E8F9;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);}
+  
+  .card_image_container{
+    position: relative;
+    overflow: hidden;
+    height: 11rem;
+  }
