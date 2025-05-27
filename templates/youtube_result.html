@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+</head>
+<body>
+  {% if graph_url %}
+    <h3>Sentiment Result:</h3>
+    <img src="data:image/png;base64,{{ graph_url }}" alt="Sentiment Graph" />
+  {% endif %}
+</body>
+</html>

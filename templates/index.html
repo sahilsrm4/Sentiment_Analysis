@@ -1,30 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sentiment Analysis App</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 0;
+    background: #f9f9f9;
+  }
+
+  /* Navbar */
+  .navbar {
+    display: flex;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+  }
+
+  .navbar div {
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    user-select: none;
+  }
+
+  .navbar div:hover, .navbar .active {
+    background-color: #555;
+  }
+
+  /* Container */
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+
+  button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Hide all sections by default */
+  .section {
+    display: none;
+  }
+
+  /* Show the active section */
+  .section.active {
+    display: block;
+  }
+</style>
 </head>
 <body>
-    <h1>Sentiment Analysis</h1>
-    <div class="card_container">
-        <a class="card_image_container">
-          <img
-            src="images/twitter.avif"
-            alt="twitter"
-            class="card_image"
-            loading="lazy"
-          />
-        </a>
-        <div class="card_title_container">
-          <a href="#" class="card_title_anchor">
-            <h2 class="card_title">Twitter Sentiment Analysis</h2>
-          </a>
-          <p class="card_desc">
-             Using this Model You can anlaysis sentiment on your twitter post . How people reated on your post
-                        </p>
-        </div>
+
+<div class="navbar">
+  <div class="nav-item active" data-target="youtube">YouTube Video Sentiment</div>
+  <div class="nav-item" data-target="paragraph">Paragraph Sentiment</div>
+  <div class="nav-item" data-target="twitter">Twitter Sentiment</div>
+</div>
+
+<div class="container">
+  
+  <!-- YouTube Video Sentiment -->
+  <div id="youtube" class="section active">
+    <form method='POST' action="/analyze_youtube">
+       <h2>YouTube Video Sentiment</h2>
+       <label for="youtube-id">Enter YouTube Video ID:</label>
+       <input type="text" id="youtube-id" name="youtube_id" placeholder="e.g. dQw4w9WgXcQ" />
+       <button type = "submit" >Analyze</button>
+    </form>
+  </div>
+
+  <!-- Paragraph Sentiment -->
+  <div id="paragraph" class="section">
+    <form action="/analyze_paragraph" method="POST">
+    <h2>Paragraph Sentiment Analysis</h2>
+    <label for="paragraph-text">Enter paragraph text:</label>
+    <textarea id="paragraph-text" rows="6" placeholder="Write your text here..." name="paragraph_id"></textarea>
+    <button  type="submit">Analyze</button>
+  </form>
+  </div>
+
+  <!-- Twitter Sentiment -->
+  <div id="twitter" class="section">
+    <h2>Twitter Sentiment Analysis</h2>
+    <label for="twitter-handle">Enter Twitter Handle (without @):</label>
+    <input type="text" id="twitter-handle" placeholder="e.g. nasa" />
+    <button onclick="analyzeTwitter()">Analyze</button>
+  </div>
+
+</div>
+
+<script>
+  // Navigation switching logic
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = document.querySelectorAll('.section');
+
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      // Remove active class from all nav items and sections
+      navItems.forEach(i => i.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+
+      // Add active to clicked nav and corresponding section
+      item.classList.add('active');
+      const target = item.getAttribute('data-target');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+
+   
+
+</script>
 
 </body>
 </html>

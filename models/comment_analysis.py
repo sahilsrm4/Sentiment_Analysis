@@ -1,7 +1,5 @@
 
-
-
-def give_analysis(comments):
+def give_analysis(comments,pipeline):
      classifier = pipeline('sentiment-analysis', model = 'cardiffnlp/twitter-roberta-base-sentiment')
      res = classifier(comments)
      
@@ -10,4 +8,4 @@ def give_analysis(comments):
      positive = labels.count('LABEL_2')
      negative = labels.count('LABEL_0')
      
-     return {'Neutral':neutral,'Positive:':positive,'Negative':negative}
+     return {'Positive:':positive,'Neutral':neutral,'Negative':negative}

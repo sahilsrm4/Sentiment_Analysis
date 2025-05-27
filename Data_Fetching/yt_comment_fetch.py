@@ -1,10 +1,4 @@
-import requests
-
-google_api_key = 'AIzaSyAUTp9GIo46szx3Az_3Nh_HOF03AH4m9qM'
-video_id = '8GY4m022tgo'
-
- 
-def get_comments(video_id):
+def get_comments(video_id,google_api_key,requests):
     url = "https://www.googleapis.com/youtube/v3/commentThreads"
     params = {
         "part": "snippet",
@@ -29,13 +23,3 @@ def get_comments(video_id):
 
     return comments
 
-# Example usage
-comments = get_comments(video_id)
-for comment in comments[:5]:
-    print(comment)
-
-with open('Fetched\comment.text','w',encoding='utf-8') as file:
-    for comment in comments[:50]:
-         file.write(comment+'\n')
-
- 
