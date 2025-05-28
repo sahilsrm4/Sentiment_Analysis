@@ -1,149 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sentiment Analysis App</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0; padding: 0;
-    background: #f9f9f9;
-  }
-
-  /* Navbar */
-  .navbar {
-    display: flex;
-    background-color: #333;
-    padding: 10px 20px;
-    color: white;
-  }
-
-  .navbar div {
-    margin-right: 20px;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 4px;
-    user-select: none;
-  }
-
-  .navbar div:hover, .navbar .active {
-    background-color: #555;
-  }
-
-  /* Container */
-  .container {
-    max-width: 600px;
-    margin: 40px auto;
-    background: white;
-    padding: 20px 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #ccc;
-  }
-
-  h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #333;
-  }
-
-  input[type="text"], textarea {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 20px;
-    font-size: 1rem;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: vertical;
-  }
-
-  button {
-    background-color: #007bff;
-    border: none;
-    color: white;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background-color: #0056b3;
-  }
-
-  /* Hide all sections by default */
-  .section {
-    display: none;
-  }
-
-  /* Show the active section */
-  .section.active {
-    display: block;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentiment Analysis App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            primary: '#0f172a',  // dark navy
+            accent: '#3b82f6',   // vibrant blue
+            background: '#f1f5f9' // light slate
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bg-background font-sans text-gray-800">
 
-<div class="navbar">
-  <div class="nav-item active" data-target="youtube">YouTube Video Sentiment</div>
-  <div class="nav-item" data-target="paragraph">Paragraph Sentiment</div>
-  <div class="nav-item" data-target="twitter">Twitter Sentiment</div>
-</div>
+  <!-- Navbar -->
+  <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold tracking-wide">SentimentAI</h1>
+      <div class="flex space-x-6 text-sm md:text-base font-medium">
+        <div class="nav-item cursor-pointer hover:text-accent transition-colors duration-200" data-target="youtube">YouTube</div>
+        <div class="nav-item cursor-pointer hover:text-accent transition-colors duration-200" data-target="paragraph">Paragraph</div>
+        <div class="nav-item cursor-pointer hover:text-accent transition-colors duration-200" data-target="twitter">Twitter</div>
+      </div>
+    </div>
+  </nav>
 
-<div class="container">
-  
-  <!-- YouTube Video Sentiment -->
-  <div id="youtube" class="section active">
-    <form method='POST' action="/analyze_youtube">
-       <h2>YouTube Video Sentiment</h2>
-       <label for="youtube-id">Enter YouTube Video ID:</label>
-       <input type="text" id="youtube-id" name="youtube_id" placeholder="e.g. dQw4w9WgXcQ" />
-       <button type = "submit" >Analyze</button>
-    </form>
-  </div>
+  <!-- Hero Section -->
+  <section class="bg-white py-16 shadow-sm">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h2 class="text-4xl md:text-5xl font-extrabold text-primary leading-tight">Uncover Emotions Behind Text</h2>
+      <p class="mt-4 text-lg text-gray-600">Analyze sentiments from YouTube videos, tweets, or your own paragraphs using smart AI models.</p>
+      <div class="mt-6">
+        <a href="#forms" class="inline-block bg-accent text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition">Get Started</a>
+      </div>
+    </div>
+  </section>
 
-  <!-- Paragraph Sentiment -->
-  <div id="paragraph" class="section">
-    <form action="/analyze_paragraph" method="POST">
-    <h2>Paragraph Sentiment Analysis</h2>
-    <label for="paragraph-text">Enter paragraph text:</label>
-    <textarea id="paragraph-text" rows="6" placeholder="Write your text here..." name="paragraph_id"></textarea>
-    <button  type="submit">Analyze</button>
-  </form>
-  </div>
+  <!-- Forms Section -->
+  <section id="forms" class="py-16 px-4 max-w-3xl mx-auto">
+    <div class="bg-white rounded-xl shadow-xl p-8 transition duration-300 ease-in-out space-y-10">
 
-  <!-- Twitter Sentiment -->
-  <div id="twitter" class="section">
-    <h2>Twitter Sentiment Analysis</h2>
-    <label for="twitter-handle">Enter Twitter Handle (without @):</label>
-    <input type="text" id="twitter-handle" placeholder="e.g. nasa" />
-    <button onclick="analyzeTwitter()">Analyze</button>
-  </div>
+      <!-- YouTube -->
+      <div id="youtube" class="section">
+        <form method="POST" action="/analyze_youtube">
+          <h3 class="text-2xl font-semibold text-primary mb-4">YouTube Sentiment</h3>
+          <label for="youtube-id" class="block text-sm font-medium mb-1">YouTube Video ID</label>
+          <input
+            type="text"
+            id="youtube-id"
+            name="youtube_id"
+            placeholder="e.g. dQw4w9WgXcQ"
+            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+          <button type="submit" class="w-full bg-accent hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition">Analyze</button>
+        </form>
+      </div>
 
-</div>
+      <!-- Paragraph -->
+      <div id="paragraph" class="section hidden">
+        <form method="POST" action="/analyze_paragraph">
+          <h3 class="text-2xl font-semibold text-primary mb-4">Paragraph Sentiment</h3>
+          <label for="paragraph-text" class="block text-sm font-medium mb-1">Your Text</label>
+          <textarea
+            id="paragraph-text"
+            name="paragraph_id"
+            rows="5"
+            placeholder="Write something..."
+            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
+          ></textarea>
+          <button type="submit" class="w-full bg-accent hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition">Analyze</button>
+        </form>
+      </div>
 
-<script>
-  // Navigation switching logic
-  const navItems = document.querySelectorAll('.nav-item');
-  const sections = document.querySelectorAll('.section');
+      <!-- Twitter -->
+      <div id="twitter" class="section hidden">
+        <h3 class="text-2xl font-semibold text-primary mb-4">Twitter Sentiment</h3>
+        <label for="twitter-handle" class="block text-sm font-medium mb-1">Twitter Handle</label>
+        <input
+          type="text"
+          id="twitter-handle"
+          placeholder="e.g. nasa"
+          class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
+        />
+        <button onclick="analyzeTwitter()" class="w-full bg-accent hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition">Analyze</button>
+      </div>
 
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      // Remove active class from all nav items and sections
-      navItems.forEach(i => i.classList.remove('active'));
-      sections.forEach(s => s.classList.remove('active'));
+    </div>
+  </section>
 
-      // Add active to clicked nav and corresponding section
-      item.classList.add('active');
-      const target = item.getAttribute('data-target');
-      document.getElementById(target).classList.add('active');
+  <!-- Scripts -->
+  <script>
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.section');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetId = item.getAttribute('data-target');
+        sections.forEach(section => {
+          section.classList.add('hidden');
+          if (section.id === targetId) section.classList.remove('hidden');
+        });
+        navItems.forEach(i => i.classList.remove('text-accent'));
+        item.classList.add('text-accent');
+      });
     });
-  });
 
-   
-
-</script>
+    function analyzeTwitter() {
+      const handle = document.getElementById("twitter-handle").value.trim();
+      if (!handle) {
+        alert("Please enter a Twitter handle.");
+      } else {
+        alert(`Analyzing tweets from @${handle}`);
+        // Replace with API call logic
+      }
+    }
+  </script>
 
 </body>
 </html>

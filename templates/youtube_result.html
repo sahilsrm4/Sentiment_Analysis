@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Result</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentiment Analysis Result</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  {% if graph_url %}
-    <h3>Sentiment Result:</h3>
-    <img src="data:image/png;base64,{{ graph_url }}" alt="Sentiment Graph" />
-  {% endif %}
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+
+  <div class="bg-white shadow-lg rounded-xl max-w-lg w-full p-6 text-center animate-fade-in">
+    {% if graph_url %}
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">Sentiment Analysis Result</h2>
+      <img src="data:image/png;base64,{{ graph_url }}" alt="Sentiment Graph"
+           class="rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out mx-auto" />
+      <p class="mt-4 text-sm text-gray-600">Visual representation of sentiment distribution.</p>
+    {% else %}
+      <h2 class="text-xl font-semibold text-red-500">No sentiment graph available.</h2>
+      <p class="text-sm text-gray-500 mt-2">Please submit a valid analysis request first.</p>
+    {% endif %}
+  </div>
+
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.6s ease-out forwards;
+    }
+  </style>
+
 </body>
 </html>

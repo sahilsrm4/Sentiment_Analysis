@@ -21,11 +21,10 @@ def analyze_youtube():
     video_id = request.form['youtube_id']
 
     comments = get_comments(video_id,google_api_key,requests)
-    res = give_analysis(comments[:100],pipeline)
+    res = give_analysis(comments[:50],pipeline)
     # plot pie chart
     fig , ax = plt.subplots()
     ax.pie(res.values(), labels = res.keys(),autopct='%1.1f%%',colors=['green','blue','red'])
-    ax.set_title("Analysis Summary")
 
     # Save to Buffer
     buf = io.BytesIO()
