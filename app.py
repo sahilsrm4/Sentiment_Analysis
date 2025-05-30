@@ -5,6 +5,8 @@ from Data_Fetching.yt_comment_fetch import get_comments
 from models.comment_analysis import give_analysis
 from models.paragraph_analysis import give_paragraph_analysis
 from transformers import pipeline
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import io
 import base64
@@ -32,6 +34,7 @@ def analyze_youtube():
     buf.seek(0)
     graph_url = base64.b64encode(buf.getvalue()).decode('utf-8')
     buf.close()
+    plt.close('fig')
     plt.close()
     return render_template('youtube_result.html',graph_url=graph_url)
 

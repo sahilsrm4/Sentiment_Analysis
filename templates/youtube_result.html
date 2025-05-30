@@ -5,31 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sentiment Analysis Result</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'media', // Enable dark mode support
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            glow: '#60a5fa',
+          },
+          keyframes: {
+            'fade-slide': {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            'glow': {
+              '0%, 100%': { boxShadow: '0 0 10px #60a5fa' },
+              '50%': { boxShadow: '0 0 20px #3b82f6' },
+            }
+          },
+          animation: {
+            'fade-slide': 'fade-slide 0.6s ease-out forwards',
+            'glow': 'glow 2s ease-in-out infinite',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+<body class="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center min-h-screen px-4">
 
-  <div class="bg-white shadow-lg rounded-xl max-w-lg w-full p-6 text-center animate-fade-in">
+  <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 shadow-2xl rounded-2xl max-w-lg w-full p-8 text-center animate-fade-slide border border-gray-200 dark:border-gray-700">
+    
     {% if graph_url %}
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">Sentiment Analysis Result</h2>
-      <img src="data:image/png;base64,{{ graph_url }}" alt="Sentiment Graph"
-           class="rounded-md shadow-md hover:scale-105 transition-transform duration-300 ease-in-out mx-auto" />
-      <p class="mt-4 text-sm text-gray-600">Visual representation of sentiment distribution.</p>
+      <h2 class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-6">Sentiment Analysis</h2>
+      
+      <!-- Sentiment Graph -->
+      <div class="relative group w-fit mx-auto">
+        <img 
+          src="data:image/png;base64,{{ graph_url }}" 
+          alt="Sentiment Graph"
+          class="rounded-lg shadow-xl hover:scale-105 transition-transform duration-300 ease-in-out border-4 border-blue-200 dark:border-blue-500 animate-glow"
+        />
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full mt-2 px-3 py-1 text-xs rounded bg-blue-600 text-white opacity-0 group-hover:opacity-100 transition duration-300">
+          Hover to zoom
+        </div>
+      </div>
+
+      <p class="mt-6 text-sm text-gray-600 dark:text-gray-400">This chart shows the confidence levels of different sentiments detected.</p>
+
+      <!-- CTA Button -->
+      <div class="mt-6">
+        <a href="/" class="inline-block px-6 py-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded-full shadow hover:shadow-md transition duration-300">
+          Try Another Analysis
+        </a>
+      </div>
+
     {% else %}
-      <h2 class="text-xl font-semibold text-red-500">No sentiment graph available.</h2>
-      <p class="text-sm text-gray-500 mt-2">Please submit a valid analysis request first.</p>
+      <h2 class="text-2xl font-semibold text-red-500 dark:text-red-400">No sentiment graph available.</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Please submit a valid text input first to generate analysis.</p>
     {% endif %}
   </div>
-
-  <style>
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-fade-in {
-      animation: fade-in 0.6s ease-out forwards;
-    }
-  </style>
 
 </body>
 </html>

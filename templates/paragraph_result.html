@@ -1,40 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Result Display</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sentiment Result</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            positive: '#22c55e',
+            negative: '#ef4444',
+            neutral: '#facc15'
+          },
+          animation: {
+            fadeIn: 'fadeIn 0.8s ease-out',
+            pulseBar: 'pulseBar 2s infinite'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
+            },
+            pulseBar: {
+              '0%, 100%': { opacity: 1 },
+              '50%': { opacity: 0.6 }
+            }
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    {% if result %}
-    <div class="bg-white rounded-2xl shadow-lg p-8 max-w-sm w-full text-center transform transition hover:scale-105">
-        
-        <!-- Sentiment Icon -->
-        <div class="mb-4">
-            {% if result.label == 'POSITIVE' %}
-                <img src="/static/icons/happy.png" alt="Happy" class="w-16 mx-auto">
-            {% elif result.label == 'NEGATIVE' %}
-                <img src="/static/icons/sad.png" alt="Sad" class="w-16 mx-auto">
-            {% else %}
-                <img src="/static/icons/neutral.png" alt="Neutral" class="w-16 mx-auto">
-            {% endif %}
-        </div>
+<body class="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-900 dark:to-gray-800 min-h-screen flex items-center justify-center p-4">
+  {% if result %}
+  <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center animate-fadeIn">
 
-        <!-- Sentiment Text -->
-        <h2 class="text-2xl font-bold text-blue-600 mb-2">{{ result.label }}</h2>
-
-        <!-- Progress Bar -->
-        <div class="relative w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-            <div 
-                class="bg-blue-500 h-4 rounded-full transition-all duration-500 ease-out" 
-                style="width: {{ (result.score * 100)|round(0, 'floor') }}%;">
-            </div>
-        </div>
-
-        <!-- Confidence -->
-        <p class="mt-2 text-sm text-gray-600">Confidence: {{ (result.score * 100)|round(2) }}%</p>
+    <!-- Icon & Label -->
+    <div class="mb-6">
+      {% if result.label == 'POSITIVE' %}
+        <img src="/static/icons/happy.png" alt="Happy" class="w-16 mx-auto mb-2">
+        <h2 class="text-3xl font-bold text-positive">Positive 😊</h2>
+      {% elif result.label == 'NEGATIVE' %}
+        <img src="/static/icons/sad.png" alt="Sad" class="w-16 mx-auto mb-2">
+        <h2 class="text-3xl font-bold text-negative">Negative 😞</h2>
+      {% else %}
+        <img src="/static/icons/neutral.png" alt="Neutral" class="w-16 mx-auto mb-2">
+        <h2 class="text-3xl font-bold text-neutral">Neutral 😐</h2>
+      {% endif %}
     </div>
-    {% endif %}
+
+    <!-- Progress Bar -->
+    <div class="relative w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5 overflow-hidden">
+      <div 
+        class="bg-gradient-to-r from-blue-400 to-blue-600 h-5 rounded-full animate-pulseBar transition-all duration-700 ease-out" 
+        style="width: {{ (result.score * 100)|round(0, 'floor') }}%;">
+      </div>
+    </div>
+
+    <!-- Score -->
+    <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+      Confidence Score: <strong>{{ (result.score * 100)|round(2) }}%</strong>
+    </p>
+
+    <!-- Back Button -->
+    <div class="mt-6">
+      <a href="/" class="inline-block px-6 py-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white font-medium shadow-md transition-all duration-300">
+        Try Another
+      </a>
+    </div>
+  </div>
+  {% endif %}
 </body>
 </html>

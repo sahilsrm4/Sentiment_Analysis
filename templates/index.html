@@ -13,88 +13,79 @@
             sans: ['Inter', 'sans-serif']
           },
           colors: {
-            primary: '#0f172a',  // dark navy
-            accent: '#3b82f6',   // vibrant blue
-            background: '#f1f5f9' // light slate
+            primary: '#0f172a',
+            accent: '#3b82f6',
+            background: '#f1f5f9',
+            soft: '#e0f2fe'
           }
         }
       }
     }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-background font-sans text-gray-800">
+<body class="bg-background font-sans text-gray-800 scroll-smooth">
 
   <!-- Navbar -->
   <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold tracking-wide">SentimentAI</h1>
+      <h1 class="text-xl font-bold tracking-wide flex items-center gap-2">
+        <i data-lucide="message-square-heart" class="w-5 h-5"></i> SentimentAI
+      </h1>
       <div class="flex space-x-6 text-sm md:text-base font-medium">
-        <div class="nav-item cursor-pointer hover:text-accent transition-colors duration-200" data-target="youtube">YouTube</div>
-        <div class="nav-item cursor-pointer hover:text-accent transition-colors duration-200" data-target="paragraph">Paragraph</div>
-        <div class="nav-item cursor-pointer hover:text-accent transition-colors duration-200" data-target="twitter">Twitter</div>
+        <div class="nav-item cursor-pointer hover:text-accent transition" data-target="youtube">YouTube</div>
+        <div class="nav-item cursor-pointer hover:text-accent transition" data-target="paragraph">Paragraph</div>
+        <div class="nav-item cursor-pointer hover:text-accent transition" data-target="twitter">Twitter</div>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="bg-white py-16 shadow-sm">
-    <div class="max-w-4xl mx-auto text-center px-6">
-      <h2 class="text-4xl md:text-5xl font-extrabold text-primary leading-tight">Uncover Emotions Behind Text</h2>
-      <p class="mt-4 text-lg text-gray-600">Analyze sentiments from YouTube videos, tweets, or your own paragraphs using smart AI models.</p>
-      <div class="mt-6">
-        <a href="#forms" class="inline-block bg-accent text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition">Get Started</a>
-      </div>
+  <section class="bg-white py-20 shadow-inner">
+    <div class="max-w-4xl mx-auto text-center px-6 animate-fade-in">
+      <h2 class="text-5xl font-extrabold text-primary leading-tight mb-4">Uncover Emotions Behind Text</h2>
+      <p class="text-lg text-gray-600">Analyze sentiments from YouTube, tweets, or your own words using AI.</p>
+      <a href="#forms" class="mt-6 inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition">Get Started</a>
     </div>
   </section>
 
   <!-- Forms Section -->
-  <section id="forms" class="py-16 px-4 max-w-3xl mx-auto">
-    <div class="bg-white rounded-xl shadow-xl p-8 transition duration-300 ease-in-out space-y-10">
+  <section id="forms" class="py-20 px-4 max-w-3xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-2xl p-10 space-y-14 transition duration-300 ease-in-out">
 
       <!-- YouTube -->
-      <div id="youtube" class="section">
-        <form method="POST" action="/analyze_youtube">
-          <h3 class="text-2xl font-semibold text-primary mb-4">YouTube Sentiment</h3>
-          <label for="youtube-id" class="block text-sm font-medium mb-1">YouTube Video ID</label>
-          <input
-            type="text"
-            id="youtube-id"
-            name="youtube_id"
-            placeholder="e.g. dQw4w9WgXcQ"
-            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
-          />
-          <button type="submit" class="w-full bg-accent hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition">Analyze</button>
+      <div id="youtube" class="section animate-fade-in">
+        <form method="POST" action="/analyze_youtube" class="space-y-4">
+          <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
+            <i data-lucide="youtube" class="w-5 h-5 text-red-500"></i> YouTube Sentiment
+          </h3>
+          <input type="text" name="youtube_id" placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)" 
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:outline-none" />
+          <button type="submit" class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">Analyze</button>
         </form>
       </div>
 
       <!-- Paragraph -->
-      <div id="paragraph" class="section hidden">
-        <form method="POST" action="/analyze_paragraph">
-          <h3 class="text-2xl font-semibold text-primary mb-4">Paragraph Sentiment</h3>
-          <label for="paragraph-text" class="block text-sm font-medium mb-1">Your Text</label>
-          <textarea
-            id="paragraph-text"
-            name="paragraph_id"
-            rows="5"
-            placeholder="Write something..."
-            class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
-          ></textarea>
-          <button type="submit" class="w-full bg-accent hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition">Analyze</button>
+      <div id="paragraph" class="section hidden animate-fade-in">
+        <form method="POST" action="/analyze_paragraph" class="space-y-4">
+          <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
+            <i data-lucide="file-text" class="w-5 h-5 text-green-500"></i> Paragraph Sentiment
+          </h3>
+          <textarea name="paragraph_id" rows="5" placeholder="Write your thoughts..."
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:outline-none"></textarea>
+          <button type="submit" class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">Analyze</button>
         </form>
       </div>
 
       <!-- Twitter -->
-      <div id="twitter" class="section hidden">
-        <h3 class="text-2xl font-semibold text-primary mb-4">Twitter Sentiment</h3>
-        <label for="twitter-handle" class="block text-sm font-medium mb-1">Twitter Handle</label>
-        <input
-          type="text"
-          id="twitter-handle"
-          placeholder="e.g. nasa"
-          class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-accent"
-        />
-        <button onclick="analyzeTwitter()" class="w-full bg-accent hover:bg-blue-600 text-white py-2 rounded-lg font-semibold transition">Analyze</button>
+      <div id="twitter" class="section hidden animate-fade-in">
+        <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
+          <i data-lucide="twitter" class="w-5 h-5 text-sky-500"></i> Twitter Sentiment
+        </h3>
+        <input type="text" id="twitter-handle" placeholder="Twitter Handle (e.g. nasa)"
+          class="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 focus:ring-2 focus:ring-accent focus:outline-none" />
+        <button onclick="analyzeTwitter()" class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">Analyze</button>
       </div>
 
     </div>
@@ -102,6 +93,8 @@
 
   <!-- Scripts -->
   <script>
+    lucide.createIcons();
+
     const navItems = document.querySelectorAll('.nav-item');
     const sections = document.querySelectorAll('.section');
 
@@ -112,8 +105,9 @@
           section.classList.add('hidden');
           if (section.id === targetId) section.classList.remove('hidden');
         });
-        navItems.forEach(i => i.classList.remove('text-accent'));
-        item.classList.add('text-accent');
+        navItems.forEach(i => i.classList.remove('text-accent', 'font-bold'));
+        item.classList.add('text-accent', 'font-bold');
+        document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
       });
     });
 
@@ -123,10 +117,20 @@
         alert("Please enter a Twitter handle.");
       } else {
         alert(`Analyzing tweets from @${handle}`);
-        // Replace with API call logic
+        // Replace this with your API logic
       }
     }
   </script>
+
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 0.6s ease-out;
+    }
+  </style>
 
 </body>
 </html>
