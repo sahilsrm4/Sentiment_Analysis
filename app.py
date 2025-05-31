@@ -10,6 +10,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import io
 import base64
+import os
 app = Flask(__name__)
 
 classifier_you_tube = pipeline('sentiment-analysis', model = 'cardiffnlp/twitter-roberta-base-sentiment')
@@ -48,4 +49,5 @@ def analyze_paragraph():
     return render_template('paragraph_result.html',result=res)
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
