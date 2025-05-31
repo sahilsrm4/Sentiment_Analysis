@@ -9,6 +9,7 @@ def get_comments(video_id,google_api_key,requests):
     }
 
     comments = []
+    print("Fetching Comments...")
     while True:
         response = requests.get(url, params=params).json()
         for item in response.get("items", []):
@@ -20,6 +21,7 @@ def get_comments(video_id,google_api_key,requests):
             params['pageToken'] = response['nextPageToken']
         else:
             break
+    print("Comments Fetched")
 
     return comments
 

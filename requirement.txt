@@ -1,0 +1,6 @@
+flask
+requests
+transformers
+torch
+matplotlib
+gunicorn

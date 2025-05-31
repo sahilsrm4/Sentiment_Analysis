@@ -12,6 +12,8 @@ import io
 import base64
 app = Flask(__name__)
 
+classifier_you_tube = pipeline('sentiment-analysis', model = 'cardiffnlp/twitter-roberta-base-sentiment')
+classifier_paragraph = pipeline('text-classification',model = 'distilbert-base-uncased-finetuned-sst-2-english')
 google_api_key = 'AIzaSyAUTp9GIo46szx3Az_3Nh_HOF03AH4m9qM'
 
 @app.route('/')
@@ -23,7 +25,7 @@ def analyze_youtube():
     video_id = request.form['youtube_id']
 
     comments = get_comments(video_id,google_api_key,requests)
-    res = give_analysis(comments[:50],pipeline)
+    res = give_analysis(comments[:50],classifier_you_tube)
     # plot pie chart
     fig , ax = plt.subplots()
     ax.pie(res.values(), labels = res.keys(),autopct='%1.1f%%',colors=['green','blue','red'])
@@ -41,7 +43,7 @@ def analyze_youtube():
 @app.route('/analyze_paragraph',methods = ['POST'])
 def analyze_paragraph():
     paragraph = request.form['paragraph_id']
-    res = give_paragraph_analysis(pipeline,paragraph)
+    res = give_paragraph_analysis(paragraph,classifier_paragraph)
     res = res[0]
     return render_template('paragraph_result.html',result=res)
 
