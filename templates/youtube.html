@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentiment Analysis App</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            primary: '#0f172a',
+            accent: '#3b82f6',
+            background: '#f1f5f9',
+            soft: '#e0f2fe'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-background font-sans text-gray-800 scroll-smooth">
+
+  <!-- Navbar -->
+  <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold tracking-wide flex items-center gap-2">
+        <i data-lucide="message-square-heart" class="w-5 h-5"></i> FeelFetch
+      </h1>
+      <div class="flex space-x-6 text-sm md:text-base font-medium">
+        <a href="/" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
+        </a>
+        <a href="/youtube" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="youtube" class="w-4 h-4"></i> YouTube
+        </a>
+        <a href="/paragraph" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Paragraph
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Forms Section -->
+  <section id="forms" class="py-20 px-4 max-w-3xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-2xl p-10 space-y-14 transition duration-300 ease-in-out">
+
+      <!-- YouTube -->
+      <div id="youtube" class="section animate-fade-in">
+        <form id="youtubeForm" class="space-y-6">
+          <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
+            <i data-lucide="youtube" class="w-6 h-6 text-red-500"></i> YouTube Sentiment
+          </h3>
+          <input 
+            type="text" 
+            id="youtube_id" 
+            placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)" 
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:outline-none transition"
+            required
+          />
+          <button 
+            type="submit" 
+            class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition"
+          >
+            Analyze
+          </button>
+        </form>
+
+        <!-- Status Output -->
+        <div id="statusLog" class="mt-6 text-sm text-gray-600 whitespace-pre-line"></div>
+
+        <!-- Graph Display -->
+        <div id="resultContainer" class="mt-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fade-in 0.6s ease-out; }
+  </style>
+
+<script>
+  lucide.createIcons();
+
+  document.getElementById('youtubeForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const videoId = document.getElementById('youtube_id').value.trim();
+    const status = document.getElementById('statusLog');
+    const result = document.getElementById('resultContainer');
+    
+    status.innerText = '⏳ Fetching comments...';
+    result.innerHTML = '';
+
+    try {
+      // STEP 1: Fetch comments
+      const commentsResponse = await fetch('/fetch_comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ youtube_id: videoId })
+      });
+
+      const commentData = await commentsResponse.json();
+      const comments = commentData.comments;
+
+      status.innerText += '\n✅ Comments fetched.';
+      
+      // STEP 2: Analyze comments
+      status.innerText += '\n🔍 Analyzing comments...';
+
+      const analyzeResponse = await fetch('/analyze_comments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ comments: comments })
+      });
+
+      const resultData = await analyzeResponse.json();
+
+      status.innerText += '\n✅ Analysis completed!';
+      result.innerHTML = `
+        <img src="data:image/png;base64,${resultData.graph_url}" alt="Sentiment Graph"
+             class="rounded-lg shadow-lg mt-4 border-4 border-blue-300 w-full max-w-md mx-auto" />
+      `;
+    } catch (err) {
+      console.error(err);
+      status.innerText = '❌ Error occurred during analysis.';
+    }
+  });
+</script>
+</body>
+</html>

@@ -10,9 +10,9 @@
       theme: {
         extend: {
           colors: {
-            positive: '#22c55e',
-            negative: '#ef4444',
-            neutral: '#facc15'
+            positive: '#16a34a',  // slightly darker green for readability
+            negative: '#dc2626',  // slightly darker red
+            neutral: '#eab308'    // slightly darker yellow
           },
           animation: {
             fadeIn: 'fadeIn 0.8s ease-out',
@@ -33,9 +33,9 @@
     }
   </script>
 </head>
-<body class="bg-gradient-to-br from-slate-100 to-slate-200 dark:from-gray-900 dark:to-gray-800 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gradient-to-br from-white to-gray-50 min-h-screen flex items-center justify-center p-4">
   {% if result %}
-  <div class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center animate-fadeIn">
+  <div class="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center animate-fadeIn">
 
     <!-- Icon & Label -->
     <div class="mb-6">
@@ -52,15 +52,15 @@
     </div>
 
     <!-- Progress Bar -->
-    <div class="relative w-full bg-gray-200 dark:bg-gray-700 rounded-full h-5 overflow-hidden">
+    <div class="relative w-full bg-gray-200 rounded-full h-5 overflow-hidden">
       <div 
-        class="bg-gradient-to-r from-blue-400 to-blue-600 h-5 rounded-full animate-pulseBar transition-all duration-700 ease-out" 
+        class="bg-gradient-to-r from-blue-300 to-blue-500 h-5 rounded-full animate-pulseBar transition-all duration-700 ease-out" 
         style="width: {{ (result.score * 100)|round(0, 'floor') }}%;">
       </div>
     </div>
 
     <!-- Score -->
-    <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">
+    <p class="mt-4 text-sm text-gray-700">
       Confidence Score: <strong>{{ (result.score * 100)|round(2) }}%</strong>
     </p>
 

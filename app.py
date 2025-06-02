@@ -21,25 +21,38 @@ google_api_key = 'AIzaSyAUTp9GIo46szx3Az_3Nh_HOF03AH4m9qM'
 def index():
     return render_template('index.html')
 
-@app.route('/analyze_youtube', methods = ['POST'])
-def analyze_youtube():
-    video_id = request.form['youtube_id']
+@app.route('/paragraph')
+def paragraph():
+    return render_template('paragraph.html')
 
-    comments = get_comments(video_id,google_api_key,requests)
-    res = give_analysis(comments[:50],classifier_you_tube)
-    # plot pie chart
-    fig , ax = plt.subplots()
-    ax.pie(res.values(), labels = res.keys(),autopct='%1.1f%%',colors=['green','blue','red'])
+@app.route('/youtube')
+def youtube():
+    return render_template('youtube.html')
 
-    # Save to Buffer
+@app.route('/fetch_comments', methods=['POST'])
+def fetch_comments():
+    data = request.get_json()
+    video_id = data.get('youtube_id', '')
+    comments = get_comments(video_id, google_api_key, requests)
+    return jsonify({'comments': comments[:50]})
+
+@app.route('/analyze_comments', methods=['POST'])
+def analyze_comments():
+    data = request.get_json()
+    comments = data.get('comments', [])
+    res = give_analysis(comments, classifier_you_tube)
+
+    fig, ax = plt.subplots()
+    ax.pie(res.values(), labels=res.keys(), autopct='%1.1f%%')
     buf = io.BytesIO()
-    plt.savefig(buf, format ='png')
+    plt.savefig(buf, format='png')
     buf.seek(0)
     graph_url = base64.b64encode(buf.getvalue()).decode('utf-8')
     buf.close()
-    plt.close('fig')
     plt.close()
-    return render_template('youtube_result.html',graph_url=graph_url)
+
+    return jsonify({'graph_url': graph_url})
+
 
 @app.route('/analyze_paragraph',methods = ['POST'])
 def analyze_paragraph():

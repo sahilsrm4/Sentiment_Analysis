@@ -1,136 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sentiment Analysis App</title>
+  <title>FeelFetch – Sentiment Analysis</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif']
+            sans: ['Inter', 'sans-serif'],
           },
           colors: {
             primary: '#0f172a',
             accent: '#3b82f6',
             background: '#f1f5f9',
-            soft: '#e0f2fe'
-          }
-        }
-      }
+            soft: '#e0f2fe',
+          },
+        },
+      },
     }
   </script>
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body class="bg-background font-sans text-gray-800 scroll-smooth">
 
-  <!-- Navbar -->
-  <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold tracking-wide flex items-center gap-2">
-        <i data-lucide="message-square-heart" class="w-5 h-5"></i> SentimentAI
-      </h1>
-      <div class="flex space-x-6 text-sm md:text-base font-medium">
-        <div class="nav-item cursor-pointer hover:text-accent transition" data-target="youtube">YouTube</div>
-        <div class="nav-item cursor-pointer hover:text-accent transition" data-target="paragraph">Paragraph</div>
-        <div class="nav-item cursor-pointer hover:text-accent transition" data-target="twitter">Twitter</div>
-      </div>
+ <!-- Navbar -->
+<nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold tracking-wide flex items-center gap-2">
+      <i data-lucide="message-square-heart" class="w-5 h-5"></i> FeelFetch
+    </h1>
+    <div class="flex space-x-6 text-sm md:text-base font-medium">
+      <a href="/" class="hover:text-accent transition flex items-center gap-1">
+        <i data-lucide="home" class="w-4 h-4"></i> Home
+      </a>
+      <a href="/youtube" class="hover:text-accent transition flex items-center gap-1">
+        <i data-lucide="youtube" class="w-4 h-4"></i> YouTube
+      </a>
+      <a href="/paragraph" class="hover:text-accent transition flex items-center gap-1">
+        <i data-lucide="file-text" class="w-4 h-4"></i> Paragraph
+      </a>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- Hero Section -->
-  <section class="bg-white py-20 shadow-inner">
-    <div class="max-w-4xl mx-auto text-center px-6 animate-fade-in">
-      <h2 class="text-5xl font-extrabold text-primary leading-tight mb-4">Uncover Emotions Behind Text</h2>
-      <p class="text-lg text-gray-600">Analyze sentiments from YouTube, tweets, or your own words using AI.</p>
-      <a href="#forms" class="mt-6 inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-full font-semibold shadow-md hover:scale-105 transition">Get Started</a>
+  <section class="relative bg-gradient-to-b from-white to-soft py-24 px-6 overflow-hidden">
+    <!-- Decorative Circle SVG -->
+    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 opacity-10 pointer-events-none">
+      <svg class="w-[800px] h-[800px]" fill="none" viewBox="0 0 600 600">
+        <circle cx="300" cy="300" r="250" fill="url(#grad1)" />
+        <defs>
+          <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3b82f6" />
+            <stop offset="100%" stop-color="#f1f5f9" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+      <h2 class="text-5xl md:text-6xl font-extrabold text-primary mb-6 leading-tight tracking-tight drop-shadow-sm">
+        Feel the Emotions in Every Word
+      </h2>
+      <p class="text-xl md:text-2xl text-gray-700 mb-10 max-w-3xl mx-auto">
+        Analyze the tone of YouTube comments or your own text using advanced sentiment detection powered by AI.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-6">
+        <a href="/youtube"
+          class="bg-accent hover:bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition duration-300 transform hover:-translate-y-1 hover:scale-105">
+          Analyze YouTube Comments
+        </a>
+        <a href="/paragraph"
+          class="bg-white hover:bg-gray-100 text-accent border border-accent px-8 py-4 rounded-full text-lg font-semibold shadow-lg transition duration-300 transform hover:-translate-y-1 hover:scale-105">
+          Analyze Paragraph
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating Emojis -->
+    <div class="absolute bottom-10 left-10 text-4xl animate-bounce-slow opacity-100">😍</div>
+    <div class="absolute top-16 right-12 text-3xl animate-pulse-slow opacity-100">💬</div>
+
+    <style>
+      @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .animate-bounce-slow {
+        animation: bounce-slow 3s infinite;
+      }
+      .animate-pulse-slow {
+        animation: pulse 4s infinite;
+      }
+    </style>
+  </section>
+
+  <!-- YouTube Section -->
+  <section class="py-16 px-6 bg-soft">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <h3 class="text-3xl font-bold text-primary mb-4">YouTube Comment Sentiment</h3>
+        <p class="text-gray-700 mb-6 text-lg">
+          Enter a YouTube video ID, and we'll fetch the comments using Google's API and analyze their sentiment — positive, negative, or neutral.
+        </p>
+        <a href="/youtube"
+          class="bg-accent hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition duration-300 transform hover:scale-105 inline-block">
+          Try YouTube Analysis
+        </a>
+      </div>
+      <div class="w-full">
+        <img src="../static/images/youtube_illustration.png" alt="YouTube Sentiment"
+          class="rounded-2xl shadow-xl max-w-md w-full object-cover mx-auto" />
+      </div>
     </div>
   </section>
 
-  <!-- Forms Section -->
-  <section id="forms" class="py-20 px-4 max-w-3xl mx-auto">
-    <div class="bg-white rounded-2xl shadow-2xl p-10 space-y-14 transition duration-300 ease-in-out">
-
-      <!-- YouTube -->
-      <div id="youtube" class="section animate-fade-in">
-        <form method="POST" action="/analyze_youtube" class="space-y-4">
-          <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
-            <i data-lucide="youtube" class="w-5 h-5 text-red-500"></i> YouTube Sentiment
-          </h3>
-          <input type="text" name="youtube_id" placeholder="YouTube Video ID (e.g. dQw4w9WgXcQ)" 
-            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:outline-none" />
-          <button type="submit" class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">Analyze</button>
-        </form>
-      </div>
-
-      <!-- Paragraph -->
-      <div id="paragraph" class="section hidden animate-fade-in">
-        <form method="POST" action="/analyze_paragraph" class="space-y-4">
-          <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
-            <i data-lucide="file-text" class="w-5 h-5 text-green-500"></i> Paragraph Sentiment
-          </h3>
-          <textarea name="paragraph_id" rows="5" placeholder="Write your thoughts..."
-            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-accent focus:outline-none"></textarea>
-          <button type="submit" class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">Analyze</button>
-        </form>
-      </div>
-
-      <!-- Twitter -->
-      <div id="twitter" class="section hidden animate-fade-in">
-        <h3 class="text-2xl font-semibold text-primary flex items-center gap-2">
-          <i data-lucide="twitter" class="w-5 h-5 text-sky-500"></i> Twitter Sentiment
-        </h3>
-        <input type="text" id="twitter-handle" placeholder="Twitter Handle (e.g. nasa)"
-          class="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 focus:ring-2 focus:ring-accent focus:outline-none" />
-        <button onclick="analyzeTwitter()" class="w-full bg-accent hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">Analyze</button>
-      </div>
-
+  <!-- Paragraph Section -->
+<section class="py-16 px-6 bg-soft">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+    <div class="order-2 md:order-1">
+      <img src="../static/images/paragraph_illustration.png" alt="Paragraph Sentiment"
+        class="rounded-2xl shadow-xl max-w-md w-full object-cover mx-auto" />
     </div>
-  </section>
+    <div class="order-1 md:order-2">
+      <h3 class="text-3xl font-bold text-primary mb-4">Paragraph Sentiment Analysis</h3>
+      <p class="text-gray-700 mb-6 text-lg">
+        Paste your own writing or a block of text, and instantly find out the emotional tone using advanced sentiment models.
+      </p>
+      <a href="/paragraph"
+        class="bg-accent hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition duration-300 transform hover:scale-105 inline-block">
+        Try Paragraph Analysis
+      </a>
+    </div>
+  </div>
+</section>
 
-  <!-- Scripts -->
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-6 text-center mt-20">
+    <p class="text-sm">&copy; 2025 FeelFetch. All rights reserved.</p>
+  </footer>
+
+  <!-- Activate Lucide Icons -->
   <script>
     lucide.createIcons();
-
-    const navItems = document.querySelectorAll('.nav-item');
-    const sections = document.querySelectorAll('.section');
-
-    navItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const targetId = item.getAttribute('data-target');
-        sections.forEach(section => {
-          section.classList.add('hidden');
-          if (section.id === targetId) section.classList.remove('hidden');
-        });
-        navItems.forEach(i => i.classList.remove('text-accent', 'font-bold'));
-        item.classList.add('text-accent', 'font-bold');
-        document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
-      });
-    });
-
-    function analyzeTwitter() {
-      const handle = document.getElementById("twitter-handle").value.trim();
-      if (!handle) {
-        alert("Please enter a Twitter handle.");
-      } else {
-        alert(`Analyzing tweets from @${handle}`);
-        // Replace this with your API logic
-      }
-    }
   </script>
-
-  <style>
-    @keyframes fade-in {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in {
-      animation: fade-in 0.6s ease-out;
-    }
-  </style>
 
 </body>
 </html>
