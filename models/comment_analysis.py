@@ -9,4 +9,4 @@ def give_analysis(comments,classifier):
      positive = labels.count('LABEL_2')
      negative = labels.count('LABEL_0')
      print('Comments Analyzed')
-     return {'Positive:':positive,'Neutral':neutral,'Negative':negative}
+     return {'Positive':positive,'Neutral':neutral,'Negative':negative}

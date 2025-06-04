@@ -1,13 +1,2 @@
-
-
-
-def give_analysis(comments):
-     classifier = pipeline('sentiment-analysis', model = 'cardiffnlp/twitter-roberta-base-sentiment')
-     res = classifier(comments)
-     
-     labels = [r['label'] for r in res]
-     neutral = labels.count('LABEL_1')
-     positive = labels.count('LABEL_2')
-     negative = labels.count('LABEL_0')
-     
-     return {'Neutral':neutral,'Positive:':positive,'Negative':negative}
+from flask import session
+print(type(session))

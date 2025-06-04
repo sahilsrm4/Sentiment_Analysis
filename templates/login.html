@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FeelFetch – Login & Signup</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: '#0f172a',
+            accent: '#3b82f6',
+            background: '#f1f5f9',
+            soft: '#e0f2fe',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-background font-sans text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-primary text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold tracking-wide flex items-center gap-2">
+        <i data-lucide="message-square-heart" class="w-5 h-5"></i> FeelFetch
+      </h1>
+      <div class="flex space-x-6 text-sm md:text-base font-medium">
+        <a href="/" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
+        </a>
+        <a href="/youtube" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="youtube" class="w-4 h-4"></i> YouTube
+        </a>
+        <a href="/paragraph" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Paragraph
+        </a>
+        <a href="/progress" class="hover:text-accent transition flex items-center gap-1">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i> Progress
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Auth Section -->
+  <main class="flex items-center justify-center min-h-screen px-4 py-8">
+    <div class="bg-white shadow-2xl rounded-3xl max-w-md w-full p-8 space-y-6 border border-gray-200">
+
+      <h2 class="text-2xl font-bold text-center text-primary">Welcome to FeelFetch</h2>
+
+      <!-- Error Message -->
+      {% if error %}
+      <div id="errorBox" class="bg-red-100 text-red-700 border border-red-300 p-3 rounded text-sm text-center">
+        {{ error }}
+      </div>
+      {% endif %}
+
+      <!-- Login Form -->
+      <form id="loginForm" class="space-y-5" method="POST" action="/login">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="text" name="username" class="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" placeholder="username" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" name="password" class="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="w-full bg-accent text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Login</button>
+        <p class="text-sm text-center mt-4">
+          Don't have an account?
+          <button type="button" class="text-accent font-semibold hover:underline" onclick="toggleForms()">Sign Up</button>
+        </p>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="space-y-5 hidden" method="POST" action="/signup">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" name="username" class="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" placeholder="John Doe" required />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Password</label>
+          <input type="password" name="password" class="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="w-full bg-accent text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">Sign Up</button>
+        <p class="text-sm text-center mt-4">
+          Already have an account?
+          <button type="button" class="text-accent font-semibold hover:underline" onclick="toggleForms()">Login</button>
+        </p>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-6 text-center">
+    <p class="text-sm">&copy; 2025 FeelFetch. All rights reserved.</p>
+  </footer>
+
+  <!-- JS Icons + Form Toggle -->
+  <script>
+    lucide.createIcons();
+
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    function toggleForms() {
+      loginForm.classList.toggle('hidden');
+      signupForm.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>

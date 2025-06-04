@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Required – FeelFetch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            primary: '#0f172a',
+            accent: '#3b82f6',
+            soft: '#f0f9ff',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts & Lucide Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-soft font-sans text-primary flex items-center justify-center min-h-screen px-6">
+
+  <div class="bg-white shadow-2xl rounded-2xl max-w-lg w-full p-10 text-center border border-gray-200">
+    <div class="flex justify-center mb-6">
+      <i data-lucide="lock" class="w-12 h-12 text-accent"></i>
+    </div>
+    <h1 class="text-3xl font-bold mb-4">Login Required</h1>
+    <p class="text-gray-600 mb-8">
+      To view your progress data, you need to log in. We use your login information to fetch and save your personalized sentiment analysis results.
+    </p>
+    <a href="/login_page" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-accent text-white font-semibold rounded-xl shadow-md hover:bg-blue-600 transition-all duration-200">
+      <i data-lucide="log-in" class="w-4 h-4"></i>
+      Go to Login
+    </a>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

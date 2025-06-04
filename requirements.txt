@@ -4,3 +4,4 @@ transformers
 torch
 matplotlib
 gunicorn
+mysql-connector-python

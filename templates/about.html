@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About | YouTube Comment Sentiment Analyzer</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f4f7fc;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #555;
+      font-size: 1.5em;
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .highlight {
+      color: #1976d2;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About the YouTube Comment Sentiment Analyzer</h1>
+    
+    <p>
+      The <span class="highlight">YouTube Comment Sentiment Analyzer</span> is a lightweight web-based application designed to help users understand the sentiment behind the comments posted on any YouTube video. It uses natural language processing (NLP) techniques to extract and analyze comments, providing insights into whether the general public feels <span class="highlight">positive</span>, <span class="highlight">negative</span>, or <span class="highlight">neutral</span> about a particular video.
+    </p>
+
+    <h2>How It Works</h2>
+    <p>
+      Users simply paste the URL of a YouTube video into the tool. The app then automatically fetches a set of comments using the YouTube Data API and processes them using a sentiment analysis model (e.g., VADER or a custom-trained model). The results are displayed with easy-to-read charts and summaries, allowing users to quickly gauge public opinion.
+    </p>
+
+    <h2>Use Cases</h2>
+    <p>
+      - **Content creators** can assess audience feedback. <br>
+      - **Researchers** can study viewer sentiment trends. <br>
+      - **Marketers** can evaluate brand perception in video content.
+    </p>
+
+    <h2>Technologies Used</h2>
+    <p>
+      - Flask (Backend) <br>
+      - YouTube Data API <br>
+      - NLTK / VADER or TextBlob (Sentiment Analysis) <br>
+      - JavaScript + Chart.js (for result visualization)
+    </p>
+
+    <footer>
+      &copy; 2025 YouTube Sentiment Analyzer | Developed by [Your Name or Team]
+    </footer>
+  </div>
+</body>
+</html>
